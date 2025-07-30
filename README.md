@@ -27,10 +27,13 @@ A simple yet powerful Q-learning implementation that teaches an agent to navigat
 
 ## Visual Output
 
-| Rewards over Episodes | Epsilon Decay |
-|------------------------|----------------|
-| ![Rewards](rewards_plot.png) | ![Epsilon](epsilon_decay.png) |
+| Rewards over Episodes |
+|------------------------|
+| ![Rewards](rewards_plot.png) |
 
+| Epsilon Decay |
+|----------------|
+| ![Epsilon](epsilon_decay.png) |
 
 This will:
 1. Train a Q-learning agent over 500 episodes

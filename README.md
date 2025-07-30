@@ -29,7 +29,7 @@ A simple yet powerful Q-learning implementation that teaches an agent to navigat
 
 | Rewards over Episodes | Epsilon Decay |
 |------------------------|----------------|
-| ![Rewards](img/rewards_plot.png) | ![Epsilon](img/epsilon_decay.png) |
+| ![Rewards](rewards_plot.png) | ![Epsilon](epsilon_decay.png) |
 
 
 This will:

@@ -29,11 +29,11 @@ A simple yet powerful Q-learning implementation that teaches an agent to navigat
 
 | Rewards over Episodes | Epsilon Decay |
 |------------------------|----------------|
-| ![Rewards](docs/rewards_plot.png) | ![Epsilon](docs/epsilon_decay.png) |
+| ![Rewards](img/rewards_plot.png) | ![Epsilon](img/epsilon_decay.png) |
 
 
 This will:
-1. Train a Q-learning agent over 5000 episodes
+1. Train a Q-learning agent over 500 episodes
 2. Log total rewards and epsilon values
 3. Plot learning curves using `matplotlib`
 
@@ -54,7 +54,7 @@ This will:
 
 | Parameter        | Value     |
 |------------------|-----------|
-| Episodes         | 5000      |
+| Episodes         | 500       |
 | Learning rate α  | 0.1       |
 | Discount γ       | 0.9       |
 | Initial ε        | 1.0       |
@@ -63,6 +63,6 @@ This will:
 
 ---
 
-##� License
+## License
 
 MIT License — free to use, modify, and share.

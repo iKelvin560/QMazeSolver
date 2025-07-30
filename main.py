@@ -25,7 +25,7 @@ def get_reward(state):
     if state == GOAL:
         return 100
     elif state in BLOCKED_STATES:
-        return -100  # Blocked states should be unreachable
+        return -100
     else:
         return -1
 
@@ -54,7 +54,7 @@ for row in range(ROWS):
         if pos not in BLOCKED_STATES:
             Q[pos] = {a: 0 for a in ACTIONS}
 
-# Training loop with reward tracking
+# Training loop
 episode_rewards = []
 
 for episode in range(EPISODES):
@@ -78,14 +78,48 @@ for episode in range(EPISODES):
     epsilon_history.append(EPSILON)
     EPSILON = max(min_epsilon, EPSILON * decay_rate)
 
-# Compute moving average
+# --- PATH TRACKING AFTER TRAINING ---
+print("\n=== Final Greedy Path Taken by Agent ===")
+state = START
+path = [state]
+
+while state != GOAL:
+    if state not in Q:
+        print(f"Dead end at {state}, no valid actions.")
+        break
+    action = max(Q[state], key=Q[state].get)
+    new_state = next_state(state, action)
+    if new_state == state:
+        print(f"Stuck at {state}, invalid move '{action}'.")
+        break
+    path.append(new_state)
+    state = new_state
+
+# Display path
+for i, step in enumerate(path):
+    print(f"Step {i}: {step}")
+
+# Optional: show it on a grid
+grid = np.full((ROWS, COLS), ' ')
+for r in range(ROWS):
+    for c in range(COLS):
+        if (r, c) in BLOCKED_STATES:
+            grid[r, c] = '#'
+grid[START] = 'S'
+grid[GOAL] = 'G'
+for step in path[1:-1]:
+    grid[step] = '.'
+
+print("\nGrid with path:")
+for row in grid:
+    print(' '.join(row))
+
+# --- PLOTS ---
 def moving_average(data, window_size=50):
     return np.convolve(data, np.ones(window_size)/window_size, mode='valid')
 
-# Plot rewards and epsilon
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
 
-# Reward plot
 ax1.plot(episode_rewards, color='lightgray', label='Total Reward per Episode')
 ax1.plot(moving_average(episode_rewards), label='Moving Average (window=100)', color='blue')
 ax1.set_xlabel("Episode")
@@ -94,7 +128,6 @@ ax1.set_title("Q-Learning Agent: Total Rewards Across Episodes")
 ax1.legend()
 ax1.grid(True)
 
-# Epsilon decay plot
 ax2.plot(epsilon_history, label='Epsilon Value', color='green')
 ax2.set_xlabel("Episode")
 ax2.set_ylabel("Epsilon")
